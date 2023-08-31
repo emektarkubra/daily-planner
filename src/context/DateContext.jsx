@@ -27,8 +27,14 @@ export default function DateContextProvider({ children }) {
     "Saturday",
   ];
   let date = new Date();
-  const [year, setYear] = useState(date.getFullYear());
-  const [month, setMonth] = useState(monthNames[date.getMonth()]);
+  const currentDate = date.getDate()
+  const currentYear = date.getFullYear()
+  const currentMonth = date.getMonth()
+  const [year, setYear] = useState(currentYear);
+  const [month, setMonth] = useState(monthNames[currentMonth]);
+
+const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [selectedMonth, setSelectedMonth] = useState(currentMonth);
 
   let firstDay = new Date();
   firstDay.setFullYear(year, monthNames.indexOf(month), 1); // ayın ilk günü
@@ -38,6 +44,12 @@ export default function DateContextProvider({ children }) {
   let beforeDayInMonth = new Date(year, monthNames.indexOf(month), 0).getDate(); // bir önceki ayın kaç gün çektiği
 
   function handleGoBack(e) {
+    if (selectedMonth === 0) {
+      setSelectedYear(selectedYear - 1);
+      setSelectedMonth(11);
+    } else {
+      setSelectedMonth(selectedMonth - 1);
+    }
     setMonth((prev) => {
       let index = monthNames.indexOf(prev);
       if (index - 1 < 0) {
@@ -52,6 +64,13 @@ export default function DateContextProvider({ children }) {
   }
 
   function handleGoForward(e) {
+    if (selectedMonth === 11) {
+      setSelectedYear(selectedYear + 1);
+      setSelectedMonth(0);
+    } else {
+      setSelectedMonth(selectedMonth + 1);
+    }
+
     setMonth((prev) => {
       let index = monthNames.indexOf(prev);
       if (index + 1 > 11) {
@@ -80,6 +99,11 @@ export default function DateContextProvider({ children }) {
           lastDay,
           dayInMonth,
           beforeDayInMonth,
+          currentYear,
+          currentMonth,
+          currentDate,
+          selectedMonth,
+          selectedYear
         }}>
         {children}
       </DateContext.Provider>

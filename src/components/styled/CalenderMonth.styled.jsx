@@ -5,11 +5,9 @@ export const StyledCalenderMonth = styled.div`
   grid-template-columns: 8.5vw 8.5vw 8.5vw 8.5vw 8.5vw 8.5vw 8.5vw;
   text-align: center;
 
-  .grid-item-0 {
+  .grid-item {
     border: 1px solid black;
-    grid-column: ${({ $columnIndex }) => {
-      return $columnIndex;
-    }};
+    text-align : center;
   }
 
   .last-days {
@@ -23,5 +21,12 @@ export const StyledCalenderMonth = styled.div`
     text-align: center;
     padding: 0 0 60px 0;
     color: #808080ac;
+  }
+  .current-day {
+    background-color : black;
+    color : white;
+    width : 19%;
+    margin :auto;
+    border-radius : 5px;
   }
 `;
