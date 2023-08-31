@@ -1,10 +1,18 @@
-function App() {
+import CalenderDays from "./components/CalenderDays";
+import CalenderMonth from "./components/CalenderMonth";
+import Container from "./components/Container";
+import DateSelect from "./components/DateSelect";
 
+function App() {
   return (
     <>
-      <h1>App</h1>
+      <Container>
+        <DateSelect />
+        <CalenderDays />
+        <CalenderMonth />
+      </Container>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
