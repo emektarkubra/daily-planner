@@ -1,11 +1,16 @@
 import { styled } from "styled-components";
 
 export const StyledDateSelect = styled.div`
-  display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto;
-  text-align: center;
+  display: flex;
+  justify-content: center;
   font-size: 1.2vw;
   .date {
-    cursor : pointer;
+    padding: 0.1vw 1vw 0vw 1vw;
+  }
+  button {
+    font-size: 1.2vw;
+    background-color: white;
+    border: none;
+    font-weight: bold;
   }
 `;
