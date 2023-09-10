@@ -39,51 +39,47 @@ export default function DateContextProvider({ children }) {
   const [selectedMonth, setSelectedMonth] = useState(currentMonth + 1);
   const [selectedDate, setSelectedDate] = useState(currentDate);
   const [isOpen, setIsOpen] = useState(false);
+  const [visibleTasks, setVisibleTasks] = useState([]);
 
-  let mM =
-    selectedMonth.toString().length === 1
-      ? `0${selectedMonth}`
-      : `${selectedMonth}`;
-  let dD =
-    selectedDate.toString().length === 1
-      ? `0${selectedDate}`
-      : `${selectedDate}`;
-  let yY =
-    selectedYear.toString().length === 1
-      ? `0${selectedYear}`
-      : `${selectedYear}`;
+  // fixed selected date info
+  let mM = selectedMonth.toString().length === 1 ? `0${selectedMonth}` : `${selectedMonth}`;
+  let dD = selectedDate.toString().length === 1 ? `0${selectedDate}` : `${selectedDate}`;
+  let yY = selectedYear.toString().length === 1 ? `0${selectedYear}` : `${selectedYear}`;
 
-  let hour =
-    currentHour.toString().length === 1 ? `0${currentHour}` : `${currentHour}`;
-  let minute =
-    currentMinutes.toString().length === 1
-      ? `0${currentMinutes}`
-      : `${currentMinutes}`;
+  // fixed current date info
+  let currentMm = currentMonth.toString().length === 1 ? `0${currentMonth}` : `${currentMonth}`;
+  let currentDd = currentDate.toString().length === 1 ? `0${currentDate}` : `${currentDate}`;
+  let currentYy = currentYear.toString().length === 1 ? `0${currentYear}` : `${currentYear}`;
+
+
+  let hour = currentHour.toString().length === 1 ? `0${currentHour}` : `${currentHour}`;
+  let minute = currentMinutes.toString().length === 1 ? `0${currentMinutes}` : `${currentMinutes}`;
 
   const defaultInfo = {
     header: "",
     color: "#ec7373",
     content: "",
     startDate: `${yY}-${mM}-${dD}`,
-    endingDate: `${yY}-${mM}-${dD}`,
-    startHour: ``,
-    endingHour: ``,
+    startHour: `${Number(hour)}:${Number(minute)}`,
   };
 
   useEffect(() => {
-    setInfo((prev) => {
+    setTask((prev) => {
       return {
         ...prev,
         startDate: `${selectedYear}-${mM}-${selectedDate}`,
-        endingDate: `${selectedYear}-${mM}-${selectedDate}`,
       };
     });
   }, [selectedDate, selectedYear, mM]);
 
   // for getting data
-  const [info, setInfo] = useState(defaultInfo);
-  const [task, setTask] = useState(info);
-  const [tasks, setTasks] = useState([{ ...task }]);
+  const [task, setTask] = useState(defaultInfo);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const storedNoteList = JSON.parse(localStorage.getItem("taskList"));
+    setTasks(storedNoteList ?? []);
+  }, []);
 
   let firstDay = new Date();
   firstDay.setFullYear(year, monthNames.indexOf(month), 1); // first day of the month
@@ -113,8 +109,6 @@ export default function DateContextProvider({ children }) {
           isOpen,
           setIsOpen,
           defaultInfo,
-          info,
-          setInfo,
           task,
           setTask,
           tasks,
@@ -127,6 +121,14 @@ export default function DateContextProvider({ children }) {
           setMonth,
           setSelectedYear,
           setSelectedMonth,
+          currentMm,
+          currentDd,
+          currentYy,
+          visibleTasks,
+          setVisibleTasks,
+          firstDay,
+          task,
+          setTask,
         }}>
         {children}
       </DateContext.Provider>
