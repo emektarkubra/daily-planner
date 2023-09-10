@@ -1,6 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DateContext } from "../context/DateContext";
 import { StyledCalenderMonth } from "./styled/CalenderMonth.styled";
+import { BsX } from "react-icons/bs";
 
 export default function CalenderMonth() {
   const {
@@ -15,21 +16,43 @@ export default function CalenderMonth() {
     selectedMonth,
     tasks,
     setIsOpen,
-    setInfo,
     setSelectedDate,
     selectedDate,
+    setTask,
+    setTasks,
+    visibleTasks, setVisibleTasks,
   } = useContext(DateContext);
 
+  useEffect(() => {
+    const filteredTasks = tasks.filter(item => item.startDate === `${selectedYear}-0${selectedMonth}-${selectedDate}`);
+    setVisibleTasks(filteredTasks);
+  }, [selectedDate, tasks]);
+
+  useEffect(() => {
+    setVisibleTasks(visibleTasks); // Güncel visibleTasks değeri
+  }, [visibleTasks]);
+
+
+  let someCondition = false;
   function handleOpenReminder(index) {
-    setIsOpen(true);
-    setInfo((prev) => {
-      return {
-        ...prev,
-        startDate: `${selectedYear}-0${selectedMonth}-${selectedDate}`,
-        endingDate: `${selectedYear}-0${selectedMonth}-${selectedDate}`,
-      };
-    });
-    setSelectedDate(index + 1);
+    if (!someCondition) {
+      setIsOpen(true);
+      setTask((prev) => {
+        return {
+          ...prev,
+          startDate: `${selectedYear}-0${selectedMonth}-${selectedDate}`,
+        };
+      });
+      setSelectedDate(index + 1);
+    }
+  }
+
+
+  function handleRemoveNote(id) {
+    const filteredTasks = tasks.filter(item => item.id !== id)
+    setTasks(filteredTasks)
+    localStorage.setItem("taskList", JSON.stringify(filteredTasks))
+    someCondition = true
   }
 
   return (
@@ -49,13 +72,12 @@ export default function CalenderMonth() {
             onClick={() => handleOpenReminder(index)}
             className="grid-item">
             <div
-              className={`${
-                index + 1 === currentDate &&
+              className={`${index + 1 === currentDate &&
                 selectedYear === currentYear &&
                 selectedMonth === currentMonth + 1
-                  ? "current-day"
-                  : ""
-              }`}>
+                ? "current-day"
+                : ""
+                }`}>
               {index + 1}
             </div>
             {tasks.map((item, i) => {
@@ -70,12 +92,10 @@ export default function CalenderMonth() {
               return selectedMonth === month &&
                 selectedYear === year &&
                 index + 1 === day ? (
-                <div className="task-box" key={i}>
-                  <div
-                    className="header"
-                    style={{ backgroundColor: `${item.color}` }}>
+                <div style={{ backgroundColor: `${item.color}` }} className="task-box" key={i}>
+                  <button onClick={() => handleRemoveNote(item.id)} className="btn-close" style={{ backgroundColor: `${item.color}` }}><BsX /></button>
+                  <div className="header">
                     <span className="content"> {item.header} :</span>
-
                     {item.content}
                   </div>
                 </div>

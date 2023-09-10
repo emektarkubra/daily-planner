@@ -44,9 +44,20 @@ export const StyledCalenderMonth = styled.div`
     padding: 4px;
     display: flex;
     flex-direction: column;
-  }
-
+    overflow: hidden;
+    overflow-wrap: break-word;
+  } 
   .content {
+    overflow: hidden
+    overflow : none;
     font-weight: bold;
   }
+  .btn-close {
+    color : black;
+    border: none;
+    cursor : pointer;
+    font-size : 14px;
+    float: right;
+  }
+
 `;
