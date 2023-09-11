@@ -7,20 +7,21 @@ export const StyledCalenderMonth = styled.div`
   font-size: 15px;
   .grid-item {
     border: 1px solid black;
-    text-align: center;
+    height: 7.8vw;
     padding: 0 0 5.8vw 0;
     cursor: pointer;
     box-sizing: border-box;
+    overflow: hidden;
     &:hover {
       background-color: #beb8b837;
     }
   }
   .last-days {
     border: 1px solid black;
-    text-align: center;
     padding: 0 0 5.8vw 0;
     color: #808080ac;
     box-sizing: border-box;
+    height: 7.8vw;
   }
   .forward-days {
     border: 1px solid black;
@@ -28,6 +29,7 @@ export const StyledCalenderMonth = styled.div`
     padding: 0 0 5.8vw 0;
     color: #808080ac;
     box-sizing: border-box;
+    height: 7.8vw;
   }
   .current-day {
     background-color: black;
@@ -36,28 +38,36 @@ export const StyledCalenderMonth = styled.div`
     margin: auto;
     border-radius: 5px;
   }
+
   .task-box {
-    margin-bottom: 5px;
-  }
-  .header {
-    font-size: 12px;
-    padding: 4px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    overflow-wrap: break-word;
-  } 
-  .content {
-    overflow: hidden
-    overflow : none;
-    font-weight: bold;
-  }
-  .btn-close {
-    color : black;
-    border: none;
-    cursor : pointer;
-    font-size : 14px;
-    float: right;
+    margin-bottom: 0.6vw;
+    padding: 0.7vw;
   }
 
+  .content-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .info-box {
+    & > .hour {
+      font-size: 0.8vw;
+      font-weight: bold;
+      width: 20%;
+    }
+    & > .header {
+      font-size: 12px;
+      overflow: hidden;
+      width: 70%;
+    }
+  }
+  .btn-close {
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0px;
+    width: 10%;
+  }
 `;

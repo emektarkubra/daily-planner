@@ -41,10 +41,12 @@ export default function DateContextProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
   const [visibleTasks, setVisibleTasks] = useState([]);
 
+
   // fixed selected date info
   let mM = selectedMonth.toString().length === 1 ? `0${selectedMonth}` : `${selectedMonth}`;
   let dD = selectedDate.toString().length === 1 ? `0${selectedDate}` : `${selectedDate}`;
   let yY = selectedYear.toString().length === 1 ? `0${selectedYear}` : `${selectedYear}`;
+
 
   // fixed current date info
   let currentMm = currentMonth.toString().length === 1 ? `0${currentMonth}` : `${currentMonth}`;
@@ -60,7 +62,7 @@ export default function DateContextProvider({ children }) {
     color: "#ec7373",
     content: "",
     startDate: `${yY}-${mM}-${dD}`,
-    startHour: `${Number(hour)}:${Number(minute)}`,
+    startHour: `${hour}:${minute}`,
   };
 
   useEffect(() => {
@@ -71,6 +73,7 @@ export default function DateContextProvider({ children }) {
       };
     });
   }, [selectedDate, selectedYear, mM]);
+
 
   // for getting data
   const [task, setTask] = useState(defaultInfo);

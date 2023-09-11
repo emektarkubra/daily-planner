@@ -3,15 +3,30 @@ import { styled } from "styled-components";
 export const StyledDateModal = styled.div`
   margin: 2vw;
   position: fixed;
-  z-index: 1;
-  top: 5vw;
+  top: 0vw;
   left: 25vw;
-  border: 2px solid red;
+  border: 1px solid black;
+  border-radius: 0.5vw;
   background-color: white;
   width: 40vw;
+  height: 32vw;
   padding: 2vw;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  box-shadow: 5px 5px 20px #888888;
+  &::-webkit-scrollbar {
+    width: 5px;
+    background-color: #eaeaea;
+    border-left: 1px solid #ccc;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #596971;
+    border-radius: 1vw;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #2e3944;
+  }
 
   form {
     display: flex;
@@ -27,8 +42,10 @@ export const StyledDateModal = styled.div`
     border: none;
     background-color: white;
     font-size: 1.2vw;
-    float: right;
     cursor: pointer;
+    position: fixed;
+    left: 67vw;
+
     &:hover {
       color: #6c757d;
     }
@@ -105,11 +122,15 @@ export const StyledDateModal = styled.div`
   }
 
   .task {
+    width: 85%;
     display: flex;
   }
 
   .task-content {
+    width: 100%;
     margin-left: 1vw;
+    overflow: hidden;
+    word-wrap: break-word;
   }
 
   .btn {
@@ -117,5 +138,9 @@ export const StyledDateModal = styled.div`
     border: none;
     cursor: pointer;
     padding: 0.2vw;
+  }
+
+  .alert {
+    text-align: center;
   }
 `;

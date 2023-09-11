@@ -20,13 +20,13 @@ export default function CalenderMonth() {
     selectedDate,
     setTask,
     setTasks,
-    visibleTasks, setVisibleTasks,
+    visibleTasks, setVisibleTasks, task
   } = useContext(DateContext);
 
   useEffect(() => {
     const filteredTasks = tasks.filter(item => item.startDate === `${selectedYear}-0${selectedMonth}-${selectedDate}`);
     setVisibleTasks(filteredTasks);
-  }, [selectedDate, tasks]);
+  }, [selectedDate, tasks, task]);
 
   useEffect(() => {
     setVisibleTasks(visibleTasks); // Güncel visibleTasks değeri
@@ -43,10 +43,10 @@ export default function CalenderMonth() {
           startDate: `${selectedYear}-0${selectedMonth}-${selectedDate}`,
         };
       });
+      setVisibleTasks(visibleTasks)
       setSelectedDate(index + 1);
     }
   }
-
 
   function handleRemoveNote(id) {
     const filteredTasks = tasks.filter(item => item.id !== id)
@@ -93,10 +93,13 @@ export default function CalenderMonth() {
                 selectedYear === year &&
                 index + 1 === day ? (
                 <div style={{ backgroundColor: `${item.color}` }} className="task-box" key={i}>
-                  <button onClick={() => handleRemoveNote(item.id)} className="btn-close" style={{ backgroundColor: `${item.color}` }}><BsX /></button>
-                  <div className="header">
-                    <span className="content"> {item.header} :</span>
-                    {item.content}
+                  <div className="content-box">
+                    <div className="info-box">
+
+                      <span className="hour"> {item.startHour} |</span>
+                      <span className="header"> {item.header}</span>
+                    </div>
+                    <button onClick={() => handleRemoveNote(item.id)} className="btn-close" style={{ backgroundColor: `${item.color}` }}><BsX /></button>
                   </div>
                 </div>
               ) : null;
