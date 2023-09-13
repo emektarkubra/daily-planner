@@ -51,11 +51,22 @@ export const StyledDateModal = styled.div`
     }
   }
 
-  input[type="text"] {
+  .input-header {
     font-size: 15px;
     padding: 10px 10px 10px 5px;
     display: inline-block;
-    width: 30vw;
+    width: 27vw;
+    border: none;
+    border-bottom: 1px solid #515151;
+    background: transparent;
+    outline: none;
+  }
+
+  .input-content {
+    font-size: 15px;
+    padding: 10px 10px 10px 5px;
+    display: inline-block;
+    width: 27vw;
     border: none;
     border-bottom: 1px solid #515151;
     background: transparent;
@@ -65,7 +76,9 @@ export const StyledDateModal = styled.div`
   input[type="color"] {
     background-color: white;
     border: none;
-    width: 25px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
   }
 
   .start-label {
@@ -142,5 +155,34 @@ export const StyledDateModal = styled.div`
 
   .alert {
     text-align: center;
+  }
+
+  .emoji-picker {
+    position: fixed;
+    right: 35vw;
+    top: 9.5vw;
+  }
+
+  .select-emoji {
+    background-color: white;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  .select-visual {
+    width: 6vw;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .select-header-box {
+    display: flex;
+  }
+
+  .emoji-img {
+    width: 2vw;
   }
 `;

@@ -4,6 +4,8 @@ import { StyledDateModal } from "./styled/DateModal.styled";
 import { v4 as uuidv4 } from "uuid";
 import { BsXLg, BsPencilSquare } from "react-icons/bs";
 import { useEffect } from "react";
+import Picker from 'emoji-picker-react';
+
 
 export default function DateModal() {
   const {
@@ -19,11 +21,13 @@ export default function DateModal() {
     selectedDate,
     dayNames,
     firstDay,
-    visibleTasks,
+    visibleTasks, isVisibleEmojiPicker, setIsVisibleEmojiPicker
   } = useContext(DateContext);
 
 
   const [isEdited, setIsEdited] = useState(false);
+  const [chosenEmojiSrc, setChosenEmojiSrc] = useState("https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f603.png");
+
 
   function handleSubmitInfo(e) {
     e.preventDefault();
@@ -34,10 +38,12 @@ export default function DateModal() {
 
     } else {
       task.id = uuidv4();
+      // task.emojiUrl = chosenEmojiSrc;
       setTasks((prev) => [...prev, task]);
       const updatedTasks = [...tasks, task];
       localStorage.setItem("taskList", JSON.stringify(updatedTasks));
     }
+
     setIsOpen(false);
     setTask(defaultInfo);
     e.target.reset();
@@ -76,6 +82,17 @@ export default function DateModal() {
     localStorage.setItem("taskList", JSON.stringify(filteredTasks));
   }
 
+
+  // emoji için
+  function handleSelectEmoji(e) {
+    e.preventDefault()
+    setIsVisibleEmojiPicker(prev => !prev)
+  }
+  const onEmojiClick = (event, emojiObject) => {
+    setChosenEmojiSrc(emojiObject.target.src);
+    setIsVisibleEmojiPicker(false)
+  };
+
   return (
     <>
       <StyledDateModal>
@@ -89,8 +106,13 @@ export default function DateModal() {
         </div>
         <form className="task-form" action="" onSubmit={handleSubmitInfo}>
           <div>
-            <input onChange={handleChange} type="text" className="input-header" placeholder="Header" name="header" value={task.header} maxLength="12" required />
-            <input onChange={handleChange} type="color" id="favcolor" name="color" value={task.color} />
+            <div className="select-header-box">
+              <input onChange={handleChange} type="text" className="input-header" placeholder="Header" name="header" value={task.header} maxLength="12" required />
+              <div className="select-visual">
+                <input onChange={handleChange} type="color" id="favcolor" name="color" value={task.color} />
+                <button onClick={handleSelectEmoji} className="select-emoji"> <img className="emoji-img" src={chosenEmojiSrc} alt="" /> </button>
+              </div>
+            </div>
           </div>
           <input onChange={handleChange} type="text" className="input-content" placeholder="Content" name="content" value={task.content} minLength="3" maxLength="80" required />
           <br />
@@ -102,8 +124,13 @@ export default function DateModal() {
           <div className="buttons">
             <button type="submit" className="submit-btn">Submit</button>
           </div>
+          {
+            isVisibleEmojiPicker ? <div className="emoji-picker">
+              <Picker onEmojiClick={onEmojiClick} height={350}
+                width="100%" />
+            </div> : null
+          }
         </form>
-
         {
           visibleTasks.length === 0 ? <div className="alert"><h2>Couldn't found any tasks</h2></div> :
             (<>

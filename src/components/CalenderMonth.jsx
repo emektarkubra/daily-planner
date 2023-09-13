@@ -20,7 +20,7 @@ export default function CalenderMonth() {
     selectedDate,
     setTask,
     setTasks,
-    visibleTasks, setVisibleTasks, task
+    visibleTasks, setVisibleTasks, task, setIsVisibleEmojiPicker
   } = useContext(DateContext);
 
   useEffect(() => {
@@ -45,6 +45,7 @@ export default function CalenderMonth() {
       });
       setVisibleTasks(visibleTasks)
       setSelectedDate(index + 1);
+      setIsVisibleEmojiPicker(false)
     }
   }
 

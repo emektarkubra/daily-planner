@@ -63,6 +63,7 @@ export default function DateContextProvider({ children }) {
     content: "",
     startDate: `${yY}-${mM}-${dD}`,
     startHour: `${hour}:${minute}`,
+    emojiUrl: null
   };
 
   useEffect(() => {
@@ -90,6 +91,9 @@ export default function DateContextProvider({ children }) {
 
   let dayInMonth = new Date(year, monthNames.indexOf(month) + 1, 0).getDate(); // day number of the month
   let beforeDayInMonth = new Date(year, monthNames.indexOf(month), 0).getDate(); // day number of the previous month
+
+  // for emoji
+  const [isVisibleEmojiPicker, setIsVisibleEmojiPicker] = useState(false)
 
   return (
     <>
@@ -131,7 +135,7 @@ export default function DateContextProvider({ children }) {
           setVisibleTasks,
           firstDay,
           task,
-          setTask,
+          setTask, isVisibleEmojiPicker, setIsVisibleEmojiPicker
         }}>
         {children}
       </DateContext.Provider>
