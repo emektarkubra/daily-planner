@@ -18,6 +18,7 @@ export default function DateModal() {
     mM,
     tasks,
     isEdited,
+    setIsEdited,
     isVisibleEmojiPicker,
     setIsVisibleEmojiPicker, 
     chosenEmojiSrc, 
@@ -27,22 +28,22 @@ export default function DateModal() {
 
   function handleSubmitInfo(e) {
     e.preventDefault();
+    task.emojiUrl = chosenEmojiSrc;
     if (isEdited) {
       const index = tasks.findIndex(item => item.id === task.id)
-      task.emojiUrl = chosenEmojiSrc;
+      console.log(index)
       tasks.splice(index, 1, task)
       localStorage.setItem("taskList", JSON.stringify(tasks))
-
+      setIsEdited(false)
     } else {
       task.id = uuidv4();
-      task.emojiUrl = chosenEmojiSrc;
       setTasks((prev) => [...prev, task]);
       const updatedTasks = [...tasks, task];
       localStorage.setItem("taskList", JSON.stringify(updatedTasks));
     }
+    setTask(defaultInfo);
     setChosenEmojiSrc(null)
     setIsOpen(false);
-    setTask(defaultInfo);
     e.target.reset();
   }
 

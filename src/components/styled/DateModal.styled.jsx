@@ -6,7 +6,7 @@ export const StyledDateModal = styled.div`
   top: 0vw;
   left: 25vw;
   border: 1px solid black;
-  border-radius: 0.5vw;
+  border-radius: 10px;
   background-color: white;
   width: 550px;
   height: 480px;
@@ -16,9 +16,10 @@ export const StyledDateModal = styled.div`
   overflow-y: auto;
   box-shadow: 5px 5px 20px #888888;
   &::-webkit-scrollbar {
-    width: 5px;
+    width: 4px;
     background-color: #eaeaea;
     border-left: 1px solid #ccc;
+    height: 10%;
   }
   &::-webkit-scrollbar-thumb {
     background-color: #596971;
@@ -109,14 +110,14 @@ export const StyledDateModal = styled.div`
   }
   .emoji-picker {
     position: fixed;
-    right: 35vw;
-    top: 9.5vw;
+    right: 495px;
+    top: 140px;
   }
   .select-header-box {
     display: flex;
   }
   .emoji-img {
-    width: 2vw;
+    width: 23px;
   }
 
   .start-label {

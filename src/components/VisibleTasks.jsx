@@ -4,7 +4,7 @@ import { BsPencilSquare, BsFillTrash3Fill } from "react-icons/bs";
 import { StyledVisibleTasks } from "./styled";
 
 export default function VisibleTasks() {
-    const { visibleTasks, dD, firstDay, selectedDate, dayNames, tasks, setTask, setIsEdited, setTasks, setChosenEmojiSrc } = useContext(DateContext)
+    const { visibleTasks, dD, firstDay,task, selectedDate, dayNames, tasks, setTask, setIsEdited, setTasks, setChosenEmojiSrc } = useContext(DateContext)
 
     // ayın hangi güne geldiğini belirlemek için
     function findDayOfMonth() {
@@ -16,6 +16,7 @@ export default function VisibleTasks() {
     function handleEditNote(id) {
         const edited = tasks.find((item) => item.id === id);
         setTask(edited);
+        console.log(task)
         setChosenEmojiSrc(edited.emojiUrl)
         setIsEdited(true);
     }
@@ -40,7 +41,7 @@ export default function VisibleTasks() {
                                 {
                                     visibleTasks.map((item, index) => (
                                         <>
-                                            <div key={item.id} className="task-info">
+                                            <div key={index} className="task-info">
                                                 <div className="task">
                                                     <div className="task-time">
                                                         <span>{item.startHour}</span>

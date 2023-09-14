@@ -56,9 +56,10 @@ export const StyledCalenderMonth = styled.div`
     width: 100%;
     display: flex;
     & > .header {
-      font-size: 12px;
+      font-size: 15px;
+      font-weight: 400;
       overflow: hidden;
-      padding: 4px;
+      padding: 3px;
     }
   }
 
