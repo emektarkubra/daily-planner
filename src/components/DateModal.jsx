@@ -1,10 +1,9 @@
 import { useContext, useState } from "react";
-import { DateContext } from "../context/DateContext";
-import { StyledDateModal } from "./styled/DateModal.styled";
+import { StyledDateModal } from "./styled";
 import { v4 as uuidv4 } from "uuid";
-import { BsXLg, BsPencilSquare } from "react-icons/bs";
-import { useEffect } from "react";
+import { BsXLg, BsPencilSquare, BsFillTrash3Fill } from "react-icons/bs";
 import Picker from 'emoji-picker-react';
+import DateContext from "../context";
 
 
 export default function DateModal() {
@@ -21,12 +20,14 @@ export default function DateModal() {
     selectedDate,
     dayNames,
     firstDay,
-    visibleTasks, isVisibleEmojiPicker, setIsVisibleEmojiPicker
+    visibleTasks,
+    isVisibleEmojiPicker,
+    setIsVisibleEmojiPicker
   } = useContext(DateContext);
 
 
   const [isEdited, setIsEdited] = useState(false);
-  const [chosenEmojiSrc, setChosenEmojiSrc] = useState("https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f603.png");
+  const [chosenEmojiSrc, setChosenEmojiSrc] = useState(null);
 
 
   function handleSubmitInfo(e) {
@@ -38,12 +39,11 @@ export default function DateModal() {
 
     } else {
       task.id = uuidv4();
-      // task.emojiUrl = chosenEmojiSrc;
+      task.emojiUrl = chosenEmojiSrc;
       setTasks((prev) => [...prev, task]);
       const updatedTasks = [...tasks, task];
       localStorage.setItem("taskList", JSON.stringify(updatedTasks));
     }
-
     setIsOpen(false);
     setTask(defaultInfo);
     e.target.reset();
@@ -96,6 +96,12 @@ export default function DateModal() {
   return (
     <>
       <StyledDateModal>
+        <button
+          onClick={handleTurnBackToCalender}
+          type="button"
+          className="cancel-btn">
+          <BsXLg />
+        </button>
         <div className="cancel-box">
           <button
             onClick={handleTurnBackToCalender}
@@ -107,10 +113,12 @@ export default function DateModal() {
         <form className="task-form" action="" onSubmit={handleSubmitInfo}>
           <div>
             <div className="select-header-box">
-              <input onChange={handleChange} type="text" className="input-header" placeholder="Header" name="header" value={task.header} maxLength="12" required />
+              <input onChange={handleChange} type="text" className="input-header" placeholder="Header" name="header" value={task.header} maxLength="16" required />
               <div className="select-visual">
                 <input onChange={handleChange} type="color" id="favcolor" name="color" value={task.color} />
-                <button onClick={handleSelectEmoji} className="select-emoji"> <img className="emoji-img" src={chosenEmojiSrc} alt="" /> </button>
+                <button onClick={handleSelectEmoji} className="select-emoji">
+                  <img className="emoji-img" src={chosenEmojiSrc === null ? "https://cdn.jsdelivr.net/npm/emoji-datasource-apple/img/apple/64/1f603.png" : chosenEmojiSrc} alt="" />
+                </button>
               </div>
             </div>
           </div>
@@ -134,34 +142,32 @@ export default function DateModal() {
         {
           visibleTasks.length === 0 ? <div className="alert"><h2>Couldn't found any tasks</h2></div> :
             (<>
-              {/* bir güne ait task lar  */}
               <div className="tasks-info">
-                <div style={{ width: "30%", margin: "auto", textAlign: "center", fontSize: "18px" }}>
-                  {findDayOfMonth()}
+                <div className="date-info">
+                  {`${dD} ${findDayOfMonth()}`}
                 </div>
-                <div style={{ width: "30%", margin: "auto", marginBottom: "1vw", textAlign: "center", fontSize: "14px" }}>
-                  {`${dD}-${mM}-${yY}`}
-                </div>
+                <hr />
                 {
                   visibleTasks.map((item) => (
                     <>
-                      <div key={item.id} style={{ backgroundColor: `${item.color}` }} className="task-info">
+                      <div key={item.id} className="task-info">
                         <div className="task">
                           <div className="task-time">
                             <span>{item.startHour}</span>
-                            <div className="">|</div>
+                            <div style={{ backgroundColor: `${item.color}` }} className="horizontal-line"></div>
                           </div>
                           <div className="task-content">
-                            <div>{item.header}:</div>
-                            <div>{item.content}</div>
+                            <div className="header-info">{item.header}:</div>
+                            <div className="content-info">{item.content}</div>
+                            <div className="emoji-box">{item.emojiUrl && <img className="emoji" src={item.emojiUrl} alt="" />}</div>
                           </div>
                         </div>
                         <div className="btn btn-group">
-                          <button onClick={() => handleEditNote(item.id)} style={{ backgroundColor: `${item.color}` }} className="btn btn-edit">
+                          <button onClick={() => handleEditNote(item.id)} className="btn btn-edit">
                             <BsPencilSquare />
                           </button>
-                          <button onClick={() => handleRemoveNote(item.id)} style={{ backgroundColor: `${item.color}` }} className="btn btn-remove">
-                            <BsXLg />
+                          <button onClick={() => handleRemoveNote(item.id)} className="btn btn-remove">
+                            <BsFillTrash3Fill />
                           </button>
                         </div>
                       </div>

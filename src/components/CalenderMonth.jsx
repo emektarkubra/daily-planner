@@ -1,7 +1,6 @@
-import { useContext, useEffect, useState } from "react";
-import { DateContext } from "../context/DateContext";
-import { StyledCalenderMonth } from "./styled/CalenderMonth.styled";
-import { BsX } from "react-icons/bs";
+import { useContext, useEffect } from "react";
+import DateContext from "../context";
+import { StyledCalenderMonth } from "./styled";
 
 export default function CalenderMonth() {
   const {
@@ -19,8 +18,10 @@ export default function CalenderMonth() {
     setSelectedDate,
     selectedDate,
     setTask,
-    setTasks,
-    visibleTasks, setVisibleTasks, task, setIsVisibleEmojiPicker
+    visibleTasks,
+    setVisibleTasks,
+    task,
+    setIsVisibleEmojiPicker
   } = useContext(DateContext);
 
   useEffect(() => {
@@ -49,13 +50,6 @@ export default function CalenderMonth() {
     }
   }
 
-  function handleRemoveNote(id) {
-    const filteredTasks = tasks.filter(item => item.id !== id)
-    setTasks(filteredTasks)
-    localStorage.setItem("taskList", JSON.stringify(filteredTasks))
-    someCondition = true
-  }
-
   return (
     <>
       <StyledCalenderMonth className="grid-container">
@@ -67,7 +61,7 @@ export default function CalenderMonth() {
         ))}
 
         {/* ayın günleri */}
-        {[...Array(dayInMonth)].map((item, index) => (
+        {[...Array(dayInMonth)].map((item, index) => (<>
           <div
             key={index}
             onClick={() => handleOpenReminder(index)}
@@ -90,23 +84,24 @@ export default function CalenderMonth() {
                 ? Number(item.startDate.substring(9, 10))
                 : Number(item.startDate.substring(8, 10));
 
+
               return selectedMonth === month &&
                 selectedYear === year &&
-                index + 1 === day ? (
-                <div style={{ backgroundColor: `${item.color}` }} className="task-box" key={i}>
-                  <div className="content-box">
-                    <div className="info-box">
-
-                      <span className="hour"> {item.startHour} |</span>
-                      <span className="header"> {item.header}</span>
+                index + 1 === day ? (<>
+                  <div className="task-box" key={i}>
+                    <div className="content-box">
+                      <div className="info-box">
+                        <div style={{ backgroundColor: `${item.color}` }} className="horizontal-line"></div>
+                        <span className="header"> {item.header}</span>
+                        <div><img src={item?.emojiUrl} alt="" /></div>
+                      </div>
                     </div>
-                    <button onClick={() => handleRemoveNote(item.id)} className="btn-close" style={{ backgroundColor: `${item.color}` }}><BsX /></button>
                   </div>
-                </div>
-              ) : null;
+                </>) : null;
             })}
           </div>
-        ))}
+
+        </>))}
 
         {/* Bir sonraki aydan taşan ayın günleri */}
         {[...Array(7 - lastDay.getDay() - 1)].map((item, index) => (

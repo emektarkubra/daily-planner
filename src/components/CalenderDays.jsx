@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { DateContext } from "../context/DateContext";
-import { StyledCalenderDays } from "./styled/CalenderDays.styled";
+import DateContext from "../context";
+import { StyledCalenderDays } from "./styled";
 
 export default function CalenderDays() {
   const { dayNames } = useContext(DateContext);

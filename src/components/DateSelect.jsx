@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { DateContext } from "../context/DateContext";
-import { StyledDateSelect } from "./styled/DateSelect.styled";
+import DateContext from "../context";
+import { StyledDateSelect } from "./styled";
 
 export default function DateSelect() {
   const {

@@ -1,4 +1,4 @@
-import { StyledContainer } from "./styled/Container.styled";
+import { StyledContainer } from "./styled";
 
 export default function Container({ children }) {
   return (

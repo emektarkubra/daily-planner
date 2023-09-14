@@ -76,9 +76,22 @@ export const StyledDateModal = styled.div`
   input[type="color"] {
     background-color: white;
     border: none;
-    width: 30px;
-    height: 30px;
     cursor: pointer;
+    padding: 0;
+    border-radius: 10px;
+    width: 20px;
+    height: 20px;
+  }
+
+  input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 15px;
+    padding: 0;
+  }
+  input[type="color"]::-webkit-color-swatch-wrapper {
+    border: none;
+    border-radius: 10px;
+    padding: 0;
   }
 
   .start-label {
@@ -118,18 +131,29 @@ export const StyledDateModal = styled.div`
 
   .task-info {
     margin: 0 auto;
-    width: 90%;
-    border: "1px solid red";
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    padding: 1vw;
-    margin-bottom: 1vw;
+    /* padding: 0.4vw; */
+    margin: 1.5vw;
+    font-size: 14px;
+  }
+
+  .date-info {
+    margin: auto;
+    margin-bottom: 1.2vw;
+    font-size: 18px;
+    padding-left: 0.4vw;
+  }
+
+  hr {
+    border-top: dotted 1px;
   }
 
   .task-time {
-    border: "1px solid blue";
-    width: 4vw;
+    width: 4.3vw;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     font-weight: bold;
   }
@@ -139,18 +163,41 @@ export const StyledDateModal = styled.div`
     display: flex;
   }
 
+  .horizontal-line {
+    width: 0.3vw;
+    border-radius: 5vw;
+    height: 1.4vw;
+  }
+
   .task-content {
     width: 100%;
-    margin-left: 1vw;
+    display: flex;
+    align-items: center;
+    margin-left: 0.5vw;
     overflow: hidden;
     word-wrap: break-word;
   }
 
+  .header-info {
+    font-weight: bold;
+  }
+
+  .content-info {
+    padding: 0.2vw;
+  }
+
+  .emoji-box {
+    border: none;
+  }
+  img {
+    border: none;
+  }
+
   .btn {
-    font-size: 14px;
+    background-color: white;
+    font-size: 16px;
     border: none;
     cursor: pointer;
-    padding: 0.2vw;
   }
 
   .alert {
@@ -184,5 +231,10 @@ export const StyledDateModal = styled.div`
 
   .emoji-img {
     width: 2vw;
+  }
+
+  .emoji {
+    width: 18px;
+    height: 18px;
   }
 `;

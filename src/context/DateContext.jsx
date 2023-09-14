@@ -41,29 +41,44 @@ export default function DateContextProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
   const [visibleTasks, setVisibleTasks] = useState([]);
 
-
   // fixed selected date info
-  let mM = selectedMonth.toString().length === 1 ? `0${selectedMonth}` : `${selectedMonth}`;
-  let dD = selectedDate.toString().length === 1 ? `0${selectedDate}` : `${selectedDate}`;
-  let yY = selectedYear.toString().length === 1 ? `0${selectedYear}` : `${selectedYear}`;
-
+  let mM =
+    selectedMonth.toString().length === 1
+      ? `0${selectedMonth}`
+      : `${selectedMonth}`;
+  let dD =
+    selectedDate.toString().length === 1
+      ? `0${selectedDate}`
+      : `${selectedDate}`;
+  let yY =
+    selectedYear.toString().length === 1
+      ? `0${selectedYear}`
+      : `${selectedYear}`;
 
   // fixed current date info
-  let currentMm = currentMonth.toString().length === 1 ? `0${currentMonth}` : `${currentMonth}`;
-  let currentDd = currentDate.toString().length === 1 ? `0${currentDate}` : `${currentDate}`;
-  let currentYy = currentYear.toString().length === 1 ? `0${currentYear}` : `${currentYear}`;
+  let currentMm =
+    currentMonth.toString().length === 1
+      ? `0${currentMonth}`
+      : `${currentMonth}`;
+  let currentDd =
+    currentDate.toString().length === 1 ? `0${currentDate}` : `${currentDate}`;
+  let currentYy =
+    currentYear.toString().length === 1 ? `0${currentYear}` : `${currentYear}`;
 
-
-  let hour = currentHour.toString().length === 1 ? `0${currentHour}` : `${currentHour}`;
-  let minute = currentMinutes.toString().length === 1 ? `0${currentMinutes}` : `${currentMinutes}`;
+  let hour =
+    currentHour.toString().length === 1 ? `0${currentHour}` : `${currentHour}`;
+  let minute =
+    currentMinutes.toString().length === 1
+      ? `0${currentMinutes}`
+      : `${currentMinutes}`;
 
   const defaultInfo = {
     header: "",
-    color: "#ec7373",
+    color: "#147592",
     content: "",
-    startDate: `${yY}-${mM}-${dD}`,
+    startDate: `${dD}-${mM}-${yY}`,
     startHour: `${hour}:${minute}`,
-    emojiUrl: null
+    emojiUrl: null,
   };
 
   useEffect(() => {
@@ -74,7 +89,6 @@ export default function DateContextProvider({ children }) {
       };
     });
   }, [selectedDate, selectedYear, mM]);
-
 
   // for getting data
   const [task, setTask] = useState(defaultInfo);
@@ -93,7 +107,7 @@ export default function DateContextProvider({ children }) {
   let beforeDayInMonth = new Date(year, monthNames.indexOf(month), 0).getDate(); // day number of the previous month
 
   // for emoji
-  const [isVisibleEmojiPicker, setIsVisibleEmojiPicker] = useState(false)
+  const [isVisibleEmojiPicker, setIsVisibleEmojiPicker] = useState(false);
 
   return (
     <>
@@ -135,7 +149,9 @@ export default function DateContextProvider({ children }) {
           setVisibleTasks,
           firstDay,
           task,
-          setTask, isVisibleEmojiPicker, setIsVisibleEmojiPicker
+          setTask,
+          isVisibleEmojiPicker,
+          setIsVisibleEmojiPicker,
         }}>
         {children}
       </DateContext.Provider>
