@@ -93,6 +93,7 @@ export default function DateContextProvider({ children }) {
   // for getting data
   const [task, setTask] = useState(defaultInfo);
   const [tasks, setTasks] = useState([]);
+  const [isEdited, setIsEdited] = useState(false);
 
   useEffect(() => {
     const storedNoteList = JSON.parse(localStorage.getItem("taskList"));
@@ -108,6 +109,7 @@ export default function DateContextProvider({ children }) {
 
   // for emoji
   const [isVisibleEmojiPicker, setIsVisibleEmojiPicker] = useState(false);
+  const [chosenEmojiSrc, setChosenEmojiSrc] = useState(null);
 
   return (
     <>
@@ -152,6 +154,10 @@ export default function DateContextProvider({ children }) {
           setTask,
           isVisibleEmojiPicker,
           setIsVisibleEmojiPicker,
+          isEdited,
+          setIsEdited,
+          chosenEmojiSrc,
+          setChosenEmojiSrc,
         }}>
         {children}
       </DateContext.Provider>

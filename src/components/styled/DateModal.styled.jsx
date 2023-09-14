@@ -8,9 +8,9 @@ export const StyledDateModal = styled.div`
   border: 1px solid black;
   border-radius: 0.5vw;
   background-color: white;
-  width: 40vw;
-  height: 32vw;
-  padding: 2vw;
+  width: 550px;
+  height: 480px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -22,7 +22,7 @@ export const StyledDateModal = styled.div`
   }
   &::-webkit-scrollbar-thumb {
     background-color: #596971;
-    border-radius: 1vw;
+    border-radius: 15px;
   }
   &::-webkit-scrollbar-thumb:hover {
     background-color: #2e3944;
@@ -31,7 +31,7 @@ export const StyledDateModal = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    padding: 3vw;
+    padding: 30px;
   }
 
   .cancel-box {
@@ -41,10 +41,9 @@ export const StyledDateModal = styled.div`
   .cancel-btn {
     border: none;
     background-color: white;
-    font-size: 1.2vw;
+    font-size: 15px;
     cursor: pointer;
-    position: fixed;
-    left: 67vw;
+    text-align: right;
 
     &:hover {
       color: #6c757d;
@@ -55,7 +54,7 @@ export const StyledDateModal = styled.div`
     font-size: 15px;
     padding: 10px 10px 10px 5px;
     display: inline-block;
-    width: 27vw;
+    width: 365px;
     border: none;
     border-bottom: 1px solid #515151;
     background: transparent;
@@ -66,7 +65,7 @@ export const StyledDateModal = styled.div`
     font-size: 15px;
     padding: 10px 10px 10px 5px;
     display: inline-block;
-    width: 27vw;
+    width: 365px;
     border: none;
     border-bottom: 1px solid #515151;
     background: transparent;
@@ -78,6 +77,7 @@ export const StyledDateModal = styled.div`
     border: none;
     cursor: pointer;
     padding: 0;
+    margin: 3px;
     border-radius: 10px;
     width: 20px;
     height: 20px;
@@ -93,19 +93,46 @@ export const StyledDateModal = styled.div`
     border-radius: 10px;
     padding: 0;
   }
+  .select-visual {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .select-emoji {
+    background-color: white;
+    border: none;
+    font-size: 18px;
+    outline: none;
+    cursor: pointer;
+  }
+  .emoji-picker {
+    position: fixed;
+    right: 35vw;
+    top: 9.5vw;
+  }
+  .select-header-box {
+    display: flex;
+  }
+  .emoji-img {
+    width: 2vw;
+  }
 
   .start-label {
     color: #515151;
   }
 
   .start-date {
-    width: 9vw;
-    font-size: 1vw;
+    width: 100px;
+    font-size: 12px;
+    height: 20px;
   }
 
   .start-hour {
-    font-size: 0.8vw;
-    width: 5vw;
+    font-size: 12px;
+    width: 65px;
+    height: 20px;
   }
 
   .submit-btn {
@@ -114,9 +141,9 @@ export const StyledDateModal = styled.div`
     outline: none;
     background-color: #909396;
     color: white;
-    font-size: 1.2vw;
-    width: 6vw;
-    padding: 0.5vw;
+    font-size: 15px;
+    width: 90px;
+    padding: 5px;
     cursor: pointer;
     &:hover {
       background-color: #6c757d;
@@ -124,117 +151,8 @@ export const StyledDateModal = styled.div`
   }
 
   .buttons {
-    width: 13vw;
+    width: 100px;
     display: flex;
     justify-content: space-between;
-  }
-
-  .task-info {
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    /* padding: 0.4vw; */
-    margin: 1.5vw;
-    font-size: 14px;
-  }
-
-  .date-info {
-    margin: auto;
-    margin-bottom: 1.2vw;
-    font-size: 18px;
-    padding-left: 0.4vw;
-  }
-
-  hr {
-    border-top: dotted 1px;
-  }
-
-  .task-time {
-    width: 4.3vw;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-weight: bold;
-  }
-
-  .task {
-    width: 85%;
-    display: flex;
-  }
-
-  .horizontal-line {
-    width: 0.3vw;
-    border-radius: 5vw;
-    height: 1.4vw;
-  }
-
-  .task-content {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    margin-left: 0.5vw;
-    overflow: hidden;
-    word-wrap: break-word;
-  }
-
-  .header-info {
-    font-weight: bold;
-  }
-
-  .content-info {
-    padding: 0.2vw;
-  }
-
-  .emoji-box {
-    border: none;
-  }
-  img {
-    border: none;
-  }
-
-  .btn {
-    background-color: white;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-  }
-
-  .alert {
-    text-align: center;
-  }
-
-  .emoji-picker {
-    position: fixed;
-    right: 35vw;
-    top: 9.5vw;
-  }
-
-  .select-emoji {
-    background-color: white;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-  }
-
-  .select-visual {
-    width: 6vw;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .select-header-box {
-    display: flex;
-  }
-
-  .emoji-img {
-    width: 2vw;
-  }
-
-  .emoji {
-    width: 18px;
-    height: 18px;
   }
 `;

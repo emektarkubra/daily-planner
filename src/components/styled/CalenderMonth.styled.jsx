@@ -42,8 +42,8 @@ export const StyledCalenderMonth = styled.div`
   }
 
   .task-box {
-    margin-bottom: 0.2vw;
-    padding-left: 0.7vw;
+    margin-bottom: 4px;
+    padding-left: 7px;
   }
 
   .content-box {
@@ -58,8 +58,7 @@ export const StyledCalenderMonth = styled.div`
     & > .header {
       font-size: 12px;
       overflow: hidden;
-      /* width: 70%; */
-      padding: 0.2vw;
+      padding: 4px;
     }
   }
 
@@ -68,7 +67,7 @@ export const StyledCalenderMonth = styled.div`
   }
 
   .horizontal-line {
-    width: 0.3vw;
-    border-radius: 5vw;
+    width: 5px;
+    border-radius: 5px;
   }
 `;

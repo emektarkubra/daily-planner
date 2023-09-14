@@ -1,10 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { StyledDateModal } from "./styled";
 import { v4 as uuidv4 } from "uuid";
-import { BsXLg, BsPencilSquare, BsFillTrash3Fill } from "react-icons/bs";
+import { BsXLg } from "react-icons/bs";
 import Picker from 'emoji-picker-react';
 import DateContext from "../context";
-
+import VisibleTasks from "./VisibleTasks";
 
 export default function DateModal() {
   const {
@@ -17,23 +17,19 @@ export default function DateModal() {
     dD,
     mM,
     tasks,
-    selectedDate,
-    dayNames,
-    firstDay,
-    visibleTasks,
+    isEdited,
     isVisibleEmojiPicker,
-    setIsVisibleEmojiPicker
+    setIsVisibleEmojiPicker, 
+    chosenEmojiSrc, 
+    setChosenEmojiSrc
   } = useContext(DateContext);
-
-
-  const [isEdited, setIsEdited] = useState(false);
-  const [chosenEmojiSrc, setChosenEmojiSrc] = useState(null);
 
 
   function handleSubmitInfo(e) {
     e.preventDefault();
     if (isEdited) {
       const index = tasks.findIndex(item => item.id === task.id)
+      task.emojiUrl = chosenEmojiSrc;
       tasks.splice(index, 1, task)
       localStorage.setItem("taskList", JSON.stringify(tasks))
 
@@ -44,6 +40,7 @@ export default function DateModal() {
       const updatedTasks = [...tasks, task];
       localStorage.setItem("taskList", JSON.stringify(updatedTasks));
     }
+    setChosenEmojiSrc(null)
     setIsOpen(false);
     setTask(defaultInfo);
     e.target.reset();
@@ -62,26 +59,6 @@ export default function DateModal() {
     setIsOpen(false);
     setTask(defaultInfo);
   };
-
-  // ayın hangi güne geldiğini belirlemek için
-  function findDayOfMonth() {
-    const firstDayOfMonth = firstDay.getDay();
-    const dayOfMonth = (firstDayOfMonth + selectedDate - 1) % 7; // seçilen günün indeksi
-    return dayNames[dayOfMonth];
-  }
-
-  function handleEditNote(id) {
-    const edited = tasks.find((item) => item.id === id);
-    setTask(edited);
-    setIsEdited(true);
-  }
-
-  function handleRemoveNote(id) {
-    const filteredTasks = tasks.filter((item) => item.id !== id);
-    setTasks(filteredTasks);
-    localStorage.setItem("taskList", JSON.stringify(filteredTasks));
-  }
-
 
   // emoji için
   function handleSelectEmoji(e) {
@@ -102,18 +79,10 @@ export default function DateModal() {
           className="cancel-btn">
           <BsXLg />
         </button>
-        <div className="cancel-box">
-          <button
-            onClick={handleTurnBackToCalender}
-            type="button"
-            className="cancel-btn">
-            <BsXLg />
-          </button>
-        </div>
         <form className="task-form" action="" onSubmit={handleSubmitInfo}>
           <div>
             <div className="select-header-box">
-              <input onChange={handleChange} type="text" className="input-header" placeholder="Header" name="header" value={task.header} maxLength="16" required />
+              <input onChange={handleChange} type="text" className="input-header" placeholder="Header" name="header" value={task.header} maxLength="20" required />
               <div className="select-visual">
                 <input onChange={handleChange} type="color" id="favcolor" name="color" value={task.color} />
                 <button onClick={handleSelectEmoji} className="select-emoji">
@@ -139,43 +108,8 @@ export default function DateModal() {
             </div> : null
           }
         </form>
-        {
-          visibleTasks.length === 0 ? <div className="alert"><h2>Couldn't found any tasks</h2></div> :
-            (<>
-              <div className="tasks-info">
-                <div className="date-info">
-                  {`${dD} ${findDayOfMonth()}`}
-                </div>
-                <hr />
-                {
-                  visibleTasks.map((item) => (
-                    <>
-                      <div key={item.id} className="task-info">
-                        <div className="task">
-                          <div className="task-time">
-                            <span>{item.startHour}</span>
-                            <div style={{ backgroundColor: `${item.color}` }} className="horizontal-line"></div>
-                          </div>
-                          <div className="task-content">
-                            <div className="header-info">{item.header}:</div>
-                            <div className="content-info">{item.content}</div>
-                            <div className="emoji-box">{item.emojiUrl && <img className="emoji" src={item.emojiUrl} alt="" />}</div>
-                          </div>
-                        </div>
-                        <div className="btn btn-group">
-                          <button onClick={() => handleEditNote(item.id)} className="btn btn-edit">
-                            <BsPencilSquare />
-                          </button>
-                          <button onClick={() => handleRemoveNote(item.id)} className="btn btn-remove">
-                            <BsFillTrash3Fill />
-                          </button>
-                        </div>
-                      </div>
-                    </>
-                  ))}
-              </div>
-            </>)
-        }
+        <VisibleTasks />
+
       </StyledDateModal>
     </>
   );

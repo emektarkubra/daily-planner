@@ -3,6 +3,7 @@ import { StyledCalenderMonth } from "./CalenderMonth.styled";
 import { StyledContainer } from "./Container.styled";
 import { StyledDateModal } from "./DateModal.styled";
 import { StyledDateSelect } from "./DateSelect.styled";
+import { StyledVisibleTasks } from "./VisibleTasks.styled";
 
 export {
   StyledCalenderDays,
@@ -10,4 +11,5 @@ export {
   StyledContainer,
   StyledDateModal,
   StyledDateSelect,
+  StyledVisibleTasks,
 };
